@@ -8,30 +8,31 @@ import {
   selectItemById,
 } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { urlFor } from "../sanity";
 
 export default function DishRow({ dish }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
-  // const totalItems = useSelector((state) => selectCartItemById(state, dish.id));
-  const cartItem = useSelector((state) => selectItemById(state, dish.id));
+  // const totalItems = useSelector((state) => selectCartItemById(state, dish._id));
+  const cartItem = useSelector((state) => selectItemById(state, dish._id));
 
   const handleIncrease = () => {
     dispatch(addToCart({ ...dish }));
   };
 
   const handleDecrease = () => {
-    dispatch(removeFromCart({ id: dish.id }));
+    dispatch(removeFromCart({ id: dish._id }));
   };
 
   return (
     <View className="mx-2 mb-3 flex-row items-center rounded-3xl bg-white p-3 shadow-2xl">
       <Image
-        className="rounded-3xl"
+        className="overflow-hidden rounded-3xl"
         style={{
           height: 100,
           width: 100,
         }}
-        source={dish.image}
+        source={{ uri: urlFor(dish.image.asset).url() }}
       />
 
       <View className="flex flex-1 space-y-3">

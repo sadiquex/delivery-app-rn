@@ -3,15 +3,15 @@ import { themeColors } from "../theme";
 import RestaurantCard from "./RestaurantCard";
 
 export default function FeaturedRow({ featureItem }) {
-  const { id, title, description, restaurants } = featureItem;
+  const { _id, name, description, restaurants } = featureItem;
 
   return (
     <View className="px-4">
-      <View className="flex-row justify-between items-center px-0">
-        {/* title and desc */}
+      <View className="flex-row items-center justify-between px-0">
+        {/* name and desc */}
         <View>
-          <Text className="font-bold text-lg">{title}</Text>
-          <Text className="text-gray-500 text-xs">{description}</Text>
+          <Text className="text-lg font-bold">{name}</Text>
+          <Text className="text-xs text-gray-500">{description}</Text>
         </View>
 
         <TouchableOpacity>

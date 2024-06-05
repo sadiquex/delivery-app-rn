@@ -1,9 +1,17 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import { categories } from "../data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getCategories } from "../api";
+import { urlFor } from "../sanity";
 
 export default function Categories() {
-  const [activeCategory, setActiveCategory] = useState(categories[0].name);
+  const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(categories[0]?._id);
+
+  useEffect(() => {
+    getCategories().then((data) => {
+      setCategories(data);
+    });
+  }, []);
 
   return (
     <View className="mt-4">
@@ -15,18 +23,18 @@ export default function Categories() {
           paddingHorizontal: 15,
         }}
       >
-        {categories.map((category, i) => (
-          <View key={i} className="flex justify-center items-center mr-6">
+        {categories?.map((category, i) => (
+          <View key={i} className="mr-6 flex items-center justify-center">
             <TouchableOpacity
-              onPress={() => setActiveCategory(category.name)}
-              className={`p-1 rounded-full shadow ${
-                activeCategory === category.name
+              onPress={() => setActiveCategory(category._id)}
+              className={`overflow-hidden rounded-full p-1 shadow ${
+                activeCategory === category._id
                   ? "bg-orange-400"
                   : "bg-gray-200"
               }`}
             >
               <Image
-                source={category.image}
+                source={{ uri: urlFor(category.image.asset).url() }}
                 style={{
                   height: 45,
                   width: 45,
