@@ -20,7 +20,7 @@ export default defineType({
     {
       name: 'image',
       type: 'image',
-      title: 'Category image',
+      title: 'Dish image',
     },
     {
       name: 'price',

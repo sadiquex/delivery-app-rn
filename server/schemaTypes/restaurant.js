@@ -14,13 +14,13 @@ export default defineType({
     {
       name: 'description',
       type: 'string',
-      title: 'Dish desc',
+      title: 'Restaurant desc',
       validation: (rule) => rule.max(200),
     },
     {
       name: 'image',
       type: 'image',
-      title: 'Category image',
+      title: 'Restaurant image',
     },
     {
       name: 'address',

@@ -1,3 +1,5 @@
+// our database schema on sanity
+
 import category from './category'
 import dish from './dish'
 import featured from './featured'
