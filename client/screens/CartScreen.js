@@ -1,16 +1,12 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import { featured } from "../data";
 import { themeColors } from "../theme";
 import * as Icon from "react-native-feather";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  removeFromCart,
-  selectCartItems,
-  selectCartTotal,
-} from "../slices/cartSlice";
+import { removeFromCart, selectCartTotal } from "../slices/cartSlice";
 import { useEffect, useState } from "react";
+import { urlFor } from "../sanity";
 
 export default function CartScreen() {
   const navigation = useNavigation();
@@ -41,7 +37,6 @@ export default function CartScreen() {
       <View className="relative py-4 shadow-sm">
         <TouchableOpacity
           onPress={() => {
-            console.log("back pe");
             navigation.goBack();
           }}
           style={{
@@ -94,7 +89,10 @@ export default function CartScreen() {
                 <Text className="font-bold" style={{ color: themeColors.text }}>
                   {items.length} x
                 </Text>
-                <Image className="h-14 w-14 rounded-full" source={dish.image} />
+                <Image
+                  className="h-14 w-14 rounded-full"
+                  source={{ uri: urlFor(dish.image.asset).url() }}
+                />
                 <Text className="flex-1 font-bold text-gray-700">
                   {dish.name}
                 </Text>
@@ -102,7 +100,7 @@ export default function CartScreen() {
                 <TouchableOpacity
                   className="rounded-full p-1"
                   style={{ backgroundColor: themeColors.bgColor(1) }}
-                  onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                  onPress={() => dispatch(removeFromCart({ id: dish._id }))}
                 >
                   <Icon.Minus
                     strokeWidth={2}
